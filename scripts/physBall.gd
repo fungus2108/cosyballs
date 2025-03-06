@@ -9,5 +9,5 @@ func _physics_process(delta: float) -> void:
 	pass
 		
 func _integrate_forces(state):
-	if Input.is_action_just_pressed("test"):
-		state.apply_impulse(Vector2(randf_range(-800, 800), randf_range(-800, 800)))
+	if Input.is_physical_key_pressed(KEY_F):
+		state.apply_impulse(Vector2(randf_range(-300, 300), randf_range(-300, 300)))
