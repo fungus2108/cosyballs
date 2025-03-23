@@ -17,8 +17,5 @@ texture = ExtResource("1_pn3sd")
 scale = Vector2(2.5, 2.5)
 shape = SubResource("RectangleShape2D_o7a3y")
 
-[node name="missileGuidance" type="Marker2D" parent="."]
-gizmo_extents = 0.0
-
 [connection signal="mouse_entered" from="." to="." method="onMouseHover"]
 [connection signal="mouse_exited" from="." to="." method="onMouseExit"]

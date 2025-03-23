@@ -2,56 +2,76 @@ extends AnimatableBody2D
 
 var rotationSpeed = 0.025
 
-# variables for sweep tween (sween?) speed / time
+# variables for sweep tween (sween?) speed & time
 var isSweeping = false
 
 var sweepSpeed = 100.0
 
-var maxSweepTime = 1.0
+var maxSweepTime = 0.9
 var minSweepTime = 0.75
 
-var maxSweepDistance = 250.0
-var minSweepDistance = 50.0
+var maxSweepDistance = 450.0
+var minSweepDistance = 60.0
 
 # variable for mouse interactions
 var isMouseHovering = false
 var isDragging = false
 
-## ALSO TO PICK UP AND MOVE BROOM FOR POSITIONING DO THE LERP TO MOUSE MOVEMENT THING!!!
+var isMouseInLevel = false
+
+## this might need extra logic to stop broom being repositioned OUTSIDE of level
+var isRepositioning = false
+
 
 func _physics_process(delta: float) -> void:
 
-	if Input.is_action_pressed("ui_right"):
-		self.rotate(rotationSpeed)
-	elif Input.is_action_pressed("ui_left"):
-		self.rotate(-rotationSpeed)
+	# verifies if player is trying to sweep or move the broom
+	if isMouseHovering and not isSweeping and not isRepositioning:
+		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+			isDragging = true
+		elif Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
+			isRepositioning = true
 		
-	if Input.is_action_just_pressed("ui_up"):
-		isSweeping = false
-
-	# verifies if player is trying to move the object
-	if isMouseHovering and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and not isSweeping:
-		isDragging = true
-		
+	# handles the sweeping when player drags from the broom to a valid location
 	if isDragging and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		# re-enables physics on broom
 		$CollisionShape2D.set_deferred("disabled", false)
 		isDragging = false
-		broomSweep()
+		
+		# dependent on levels each having a level boundary that emits signals here!!
+		if isMouseInLevel:
+			broomSweep()
 		
 		# gets rid of dashed line
 		queue_redraw()
 		
+	# draws the dotted blue line and disables physics in pre-sweep
 	if isDragging:
+		# disables physics on broom when pre-sweep dragging
 		$CollisionShape2D.set_deferred("disabled", true)
+		# gets the direction of broom -> mouse for rotation setting
 		var mousePosition = get_global_mouse_position()
 		var directionVector =  mousePosition - self.position
 		
 		self.rotation = directionVector.angle()
 		queue_redraw()
 	
+	# drops broom after reposition
+	if isRepositioning and not Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
+		isRepositioning = false
+		$CollisionShape2D.set_deferred("disabled", false)
+	
+	# lets the broom be repositioned with the mouse
+	if isRepositioning:
+		# disables physics
+		$CollisionShape2D.set_deferred("disabled", true)
+		
+		var mousePosition = get_global_mouse_position()
+		self.position = mousePosition
+	
 	# sets modulation
-	if isDragging:
-		$broomSprite.modulate = Color(0.95, 0.95, 0.95, 0.9)
+	if isDragging or isRepositioning:
+		$broomSprite.modulate = Color(0.95, 0.95, 0.95, 0.8)
 	elif isMouseHovering:
 		$broomSprite.modulate = Color(1.5, 1.5, 1.5, 1.0)
 	else:
@@ -63,21 +83,13 @@ func _draw():
 		var mousePosition = get_local_mouse_position()
 		draw_dashed_line(Vector2(0, 0), mousePosition, Color.DEEP_SKY_BLUE, 15.0, 30.0, true, true)
 
-	
+
 ## Lets the player sweep again
 func sweepTweenCallback():
 	isSweeping = false
 
 
-func customClamp(value: float):
-	if value <= minSweepTime:
-		return minSweepTime
-	elif value >= maxSweepTime:
-		return maxSweepTime
-	else:
-		return value
-
-
+## Sweeps the broom. Distance and speed dependent on global variables
 func broomSweep():
 	var mousePosition = get_global_mouse_position()
 	
@@ -105,10 +117,16 @@ func broomSweep():
 	sweepTween.tween_callback(sweepTweenCallback)
 
 
-# these two functions receive the signal for the mouse entering / exiting object area
-# highlights the object so its more obvious and sets a bool for use elsewhere
+# these two functions receive signals for the mouse entering / exiting object (broom) area
 func onMouseHover() -> void:
 	isMouseHovering = true
 	
 func onMouseExit() -> void:
 	isMouseHovering = false
+
+# these two functions receive signals for mouse entering / exiting valid play area
+func mouseInLevelBoundary() -> void:
+	isMouseInLevel = true
+
+func mouseOutLevelBoundary() -> void:
+	isMouseInLevel = false
