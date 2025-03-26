@@ -19,10 +19,29 @@ var isDragging = false
 
 var isMouseInLevel = false
 
-## this might need extra logic to stop broom being repositioned OUTSIDE of level
 var isRepositioning = false
+var lastValidPosition = Vector2()
+
+# variables for keeping the broom within the level bounds
+var levelMinimum = Vector2()
+var levelMaximum = Vector2()
+
+# feels bad using a hardcoded value here but hey ho
+@onready var broomWidth = 12 * $broomSprite.scale.y
 
 
+func _ready() -> void:
+	# just to make sure everything's loaded
+	await get_tree().physics_frame
+	
+	# get the start and end points of bounding rectangle to clamp broom sweeping
+	var levelBoundary = $"../levelBoundary/boundaryShape".shape.get_rect().grow(-broomWidth)
+	var levelBoundaryPosition = $"../levelBoundary/boundaryShape".global_position
+	
+	levelMinimum = levelBoundaryPosition + levelBoundary.position
+	levelMaximum = levelBoundaryPosition + levelBoundary.end
+	
+	
 func _physics_process(delta: float) -> void:
 
 	# verifies if player is trying to sweep or move the broom
@@ -31,6 +50,8 @@ func _physics_process(delta: float) -> void:
 			isDragging = true
 		elif Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
 			isRepositioning = true
+			# stores current (valid) broom position
+			lastValidPosition = self.position
 		
 	# handles the sweeping when player drags from the broom to a valid location
 	if isDragging and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
@@ -39,8 +60,7 @@ func _physics_process(delta: float) -> void:
 		isDragging = false
 		
 		# dependent on levels each having a level boundary that emits signals here!!
-		if isMouseInLevel:
-			broomSweep()
+		broomSweep()
 		
 		# gets rid of dashed line
 		queue_redraw()
@@ -60,6 +80,9 @@ func _physics_process(delta: float) -> void:
 	if isRepositioning and not Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
 		isRepositioning = false
 		$CollisionShape2D.set_deferred("disabled", false)
+		
+		if not isMouseInLevel:
+			self.position = lastValidPosition
 	
 	# lets the broom be repositioned with the mouse
 	if isRepositioning:
@@ -107,11 +130,15 @@ func broomSweep():
 	var tweenDistance = clampf(totalDistance, minSweepDistance, maxSweepDistance)
 	
 	# calculate the destination based off the normalised vector and calculated distance
-	var sweepDestination = self.position + (sweepVector.normalized() * tweenDistance)
+	var tmpDestination = self.position + (sweepVector.normalized() * tweenDistance)
+	
+	# clamp distance to level bounding box
+	var sweepDestination = tmpDestination.clamp(levelMinimum, levelMaximum)
+	
 	var tweenSpeed = clampf(sweepSpeed / tweenDistance, minSweepTime, maxSweepTime)
 	
 	# tween me
-	sweepTween.tween_property(self, "position", sweepDestination, tweenSpeed)
+	sweepTween.tween_property(self, "global_position", sweepDestination, tweenSpeed)
 	
 	# callback has to be an icky function (idk how to do anonymous functions)
 	sweepTween.tween_callback(sweepTweenCallback)

@@ -46,6 +46,7 @@ position = Vector2(1098, 115)
 [node name="boundaryShape" type="CollisionShape2D" parent="levelBoundary"]
 position = Vector2(596, 512)
 shape = SubResource("RectangleShape2D_yhna4")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
 [connection signal="mouse_entered" from="levelBoundary" to="Broom" method="mouseInLevelBoundary"]
 [connection signal="mouse_exited" from="levelBoundary" to="Broom" method="mouseOutLevelBoundary"]
