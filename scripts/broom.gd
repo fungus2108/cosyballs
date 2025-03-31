@@ -79,14 +79,18 @@ func _physics_process(delta: float) -> void:
 	# drops broom after reposition
 	if isRepositioning and not Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
 		isRepositioning = false
-		$CollisionShape2D.set_deferred("disabled", false)
 		
+		# if dragged out of bounds
 		if not isMouseInLevel:
 			self.position = lastValidPosition
+		
+		# waits for a physics frame before re-enabling physics
+		await get_tree().physics_frame
+		$CollisionShape2D.set_deferred("disabled", false)
 	
 	# lets the broom be repositioned with the mouse
 	if isRepositioning:
-		# disables physics
+		# disables physics - maybe shouldn't set this constantly!
 		$CollisionShape2D.set_deferred("disabled", true)
 		
 		var mousePosition = get_global_mouse_position()

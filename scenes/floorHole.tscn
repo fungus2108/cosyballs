@@ -4,16 +4,20 @@
 [ext_resource type="Shader" uid="uid://crl32xw6tj7t" path="res://materials/floorHole.gdshader" id="1_x6ng3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_x6ng3"]
-radius = 228.009
+radius = 228.002
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pqek0"]
 shader = ExtResource("1_x6ng3")
 shader_parameter/noColour = Vector4(0, 0, 0, 0)
 
-[node name="Node2D" type="Area2D"]
+[node name="Area2D" type="Area2D"]
+gravity_point = true
+linear_damp_space_override = 3
+linear_damp = 6.0
 script = ExtResource("1_pqek0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 0.00342622
 shape = SubResource("CircleShape2D_x6ng3")
 
 [node name="holeShader" type="ColorRect" parent="."]
@@ -30,5 +34,6 @@ offset_bottom = 228.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+metadata/_edit_use_anchors_ = true
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

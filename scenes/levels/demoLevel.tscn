@@ -13,35 +13,38 @@ size = Vector2(2058, 1130)
 script = ExtResource("2_a86id")
 ball = ExtResource("3_132ej")
 
-[node name="Barrier" parent="." instance=ExtResource("1_j6k47")]
+[node name="levelGeometry" type="Node2D" parent="."]
+
+[node name="outerLeft" parent="levelGeometry" instance=ExtResource("1_j6k47")]
 position = Vector2(-449, 497)
 scale = Vector2(1, 24.57)
 
-[node name="Barrier3" parent="." instance=ExtResource("1_j6k47")]
+[node name="outerRight" parent="levelGeometry" instance=ExtResource("1_j6k47")]
 position = Vector2(1641, 498)
 scale = Vector2(1, 24.465)
 
-[node name="Barrier2" parent="." instance=ExtResource("1_j6k47")]
+[node name="outerLower" parent="levelGeometry" instance=ExtResource("1_j6k47")]
 position = Vector2(603, 1093)
 rotation = -1.5709
 scale = Vector2(1, 32.445)
 
-[node name="Barrier4" parent="." instance=ExtResource("1_j6k47")]
+[node name="outerUpper" parent="levelGeometry" instance=ExtResource("1_j6k47")]
 position = Vector2(600, -69)
 rotation = -1.5709
 scale = Vector2(1, 32.48)
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera" type="Camera2D" parent="."]
 position = Vector2(596, 512)
-zoom = Vector2(0.905, 0.905)
+zoom = Vector2(0.9, 0.9)
 
-[node name="Marker2D" type="Marker2D" parent="."]
+[node name="ballSpawnMarker" type="Marker2D" parent="."]
 position = Vector2(595, 513)
 gizmo_extents = 12.0
 
 [node name="Broom" parent="." instance=ExtResource("4_m06wi")]
-z_index = 1
-position = Vector2(1098, 115)
+top_level = true
+z_index = 3
+position = Vector2(1160, 259)
 
 [node name="levelBoundary" type="Area2D" parent="."]
 
@@ -52,8 +55,9 @@ shape = SubResource("RectangleShape2D_yhna4")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
 [node name="hole" parent="." instance=ExtResource("5_5runf")]
-z_index = 3
+z_index = 2
 position = Vector2(63, 303)
 
+[connection signal="body_exited" from="levelBoundary" to="hole" method="_on_level_boundary_body_exited"]
 [connection signal="mouse_entered" from="levelBoundary" to="Broom" method="mouseInLevelBoundary"]
 [connection signal="mouse_exited" from="levelBoundary" to="Broom" method="mouseOutLevelBoundary"]

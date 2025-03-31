@@ -4,6 +4,6 @@
 
 [node name="GlobalMusic" type="AudioStreamPlayer"]
 stream = ExtResource("1_r8g5f")
-volume_db = -8.433
+volume_db = -10.0
 autoplay = true
 parameters/looping = true
