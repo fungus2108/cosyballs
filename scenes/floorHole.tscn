@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://dhs2rkoq36qwu"]
+
+[ext_resource type="Script" uid="uid://c81nswy3kjluy" path="res://scripts/floorHole.gd" id="1_pqek0"]
+[ext_resource type="Shader" uid="uid://crl32xw6tj7t" path="res://materials/floorHole.gdshader" id="1_x6ng3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x6ng3"]
+radius = 228.009
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pqek0"]
+shader = ExtResource("1_x6ng3")
+shader_parameter/noColour = Vector4(0, 0, 0, 0)
+
+[node name="Node2D" type="Area2D"]
+script = ExtResource("1_pqek0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_x6ng3")
+
+[node name="holeShader" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_pqek0")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -228.0
+offset_top = -228.0
+offset_right = 228.0
+offset_bottom = 228.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

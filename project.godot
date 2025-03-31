@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="25Uni_Project"
-run/main_scene="res://scenes/physTest.tscn"
+run/main_scene="uid://b8hoshkppq584"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+backgroundMusic="*res://scenes/autoloads/globalMusic.tscn"
 
 [display]
 

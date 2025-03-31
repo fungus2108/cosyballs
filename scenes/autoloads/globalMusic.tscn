@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://4kssa70wi0m7"]
+
+[ext_resource type="AudioStream" uid="uid://1uwh2o3ah7v0" path="res://assets/music/bgm.mp3" id="1_r8g5f"]
+
+[node name="GlobalMusic" type="AudioStreamPlayer"]
+stream = ExtResource("1_r8g5f")
+volume_db = -8.433
+autoplay = true
+parameters/looping = true
