@@ -10,7 +10,7 @@ var sweepSpeed = 100.0
 var maxSweepTime = 0.9
 var minSweepTime = 0.75
 
-var maxSweepDistance = 450.0
+var maxSweepDistance = 500.0
 var minSweepDistance = 60.0
 
 # variable for mouse interactions
@@ -95,6 +95,12 @@ func _physics_process(delta: float) -> void:
 		
 		var mousePosition = get_global_mouse_position()
 		self.position = mousePosition
+		
+		# who up rotating they broom
+		if Input.is_action_just_pressed("MWD"):
+			self.rotate(-2 * PI / 30)
+		if Input.is_action_just_pressed("MWU"):
+			self.rotate(2 * PI / 30)
 	
 	# sets modulation
 	if isDragging or isRepositioning:

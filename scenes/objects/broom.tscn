@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://c0pnlawl8f31x"]
+
+[ext_resource type="Script" uid="uid://cyc2tdr86s808" path="res://scripts/broom.gd" id="1_o7a3y"]
+[ext_resource type="Texture2D" uid="uid://0yceohf57wae" path="res://assets/sprites/broom1.png" id="1_pn3sd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o7a3y"]
+size = Vector2(24, 120)
+
+[node name="Broom" type="AnimatableBody2D"]
+script = ExtResource("1_o7a3y")
+
+[node name="broomSprite" type="Sprite2D" parent="."]
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("1_pn3sd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(2.5, 2.5)
+shape = SubResource("RectangleShape2D_o7a3y")
+
+[connection signal="mouse_entered" from="." to="." method="onMouseHover"]
+[connection signal="mouse_exited" from="." to="." method="onMouseExit"]
