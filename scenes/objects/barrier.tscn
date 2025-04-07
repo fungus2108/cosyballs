@@ -3,11 +3,12 @@
 [ext_resource type="Texture2D" uid="uid://fcg12unrhmp" path="res://assets/sprites/barrier.png" id="1_qfl2k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hwpwa"]
-size = Vector2(32, 64)
+size = Vector2(64, 64)
 
 [node name="StaticBody2D" type="StaticBody2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2, 1)
 texture = ExtResource("1_qfl2k")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

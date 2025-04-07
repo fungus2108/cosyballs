@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://yo1f0wifig7q" path="res://scenes/objects/ceilingFan.tscn" id="6_dh3sk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yhna4"]
-size = Vector2(2058, 1130)
+size = Vector2(2098, 1181)
 
 [node name="demoLevel" type="Node2D"]
 script = ExtResource("1_3b3nu")
@@ -17,22 +17,22 @@ ball = ExtResource("2_dh3sk")
 [node name="levelGeometry" type="Node2D" parent="."]
 
 [node name="outerLeft" parent="levelGeometry" instance=ExtResource("3_fstfe")]
-position = Vector2(-449, 497)
+position = Vector2(-478, 372)
 scale = Vector2(1, 24.57)
 
 [node name="outerRight" parent="levelGeometry" instance=ExtResource("3_fstfe")]
-position = Vector2(1641, 498)
+position = Vector2(1684, 498)
 scale = Vector2(1, 24.465)
 
 [node name="outerLower" parent="levelGeometry" instance=ExtResource("3_fstfe")]
-position = Vector2(603, 1093)
+position = Vector2(615, 1132)
 rotation = -1.5709
-scale = Vector2(1, 32.445)
+scale = Vector2(1, 34.17)
 
 [node name="outerUpper" parent="levelGeometry" instance=ExtResource("3_fstfe")]
-position = Vector2(600, -69)
+position = Vector2(610, -113)
 rotation = -1.5709
-scale = Vector2(1, 32.48)
+scale = Vector2(1, 33.51)
 
 [node name="Camera" type="Camera2D" parent="."]
 position = Vector2(596, 512)
@@ -51,8 +51,7 @@ rotation = 3.14159
 [node name="levelBoundary" type="Area2D" parent="."]
 
 [node name="boundaryShape" type="CollisionShape2D" parent="levelBoundary"]
-visible = false
-position = Vector2(596, 512)
+position = Vector2(603, 509.5)
 shape = SubResource("RectangleShape2D_yhna4")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
 

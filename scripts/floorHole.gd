@@ -20,11 +20,11 @@ func _on_body_entered(body: Node2D) -> void:
 		body.set_collision_mask(17)
 		
 		# schlorp them toward the center of the hole
-		var impulseVec = (self.global_position - body.position) * 6.0
+		var impulseVec = (self.global_position - body.position) * 8.0
 		body.apply_impulse(impulseVec)
 		
 		# after timeout they're frozen to not move
-		await get_tree().create_timer(0.5).timeout
+		await get_tree().create_timer(0.1).timeout
 		body.set_freeze_enabled(true)
 		
 		ballCounter += 1
