@@ -1,10 +1,12 @@
 extends Area2D
 
 var totalBallInstances
-var ballCounter = 0
+var ballCounter = 0.0
 
 func _ready() -> void:
-	# fetches the total number of balls in the level from the level scripts
+	# fetches the total number of balls in the level from the level script
+	await get_tree().physics_frame
+	
 	totalBallInstances = $"..".ballInstances
 
 func _physics_process(delta: float) -> void:
@@ -20,7 +22,7 @@ func _on_body_entered(body: Node2D) -> void:
 		body.set_collision_mask(17)
 		
 		# schlorp them toward the center of the hole
-		var impulseVec = (self.global_position - body.position) * 8.0
+		var impulseVec = (self.global_position - body.position) * 10.0
 		body.apply_impulse(impulseVec)
 		
 		# after timeout they're frozen to not move
@@ -28,6 +30,9 @@ func _on_body_entered(body: Node2D) -> void:
 		body.set_freeze_enabled(true)
 		
 		ballCounter += 1
+		
+		var ballColour = ballCounter / totalBallInstances 
+		body.holeColouring(maxf(ballColour, 0.4))
 
 
 func _on_level_boundary_body_exited(body: Node2D) -> void:

@@ -1,7 +1,5 @@
 extends AnimatableBody2D
 
-var rotationSpeed = 0.025
-
 # variables for sweep tween (sween?) speed & time
 var isSweeping = false
 
@@ -27,7 +25,7 @@ var levelMinimum = Vector2()
 var levelMaximum = Vector2()
 
 var followSpeed = 1.5
-var turnSpeed = 8.0
+var turnSpeed = 2.5
 
 # feels bad using a hardcoded value here but hey ho
 @onready var broomWidth = 12 * $broomSprite.scale.y
@@ -56,11 +54,11 @@ func _physics_process(delta: float) -> void:
 			# stores current (valid) broom position
 			lastValidPosition = self.position
 		
-	# handles the sweeping when player drags from the broom to a valid location
+	# stops dragging if there is no input (duh)
 	if isDragging and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		isDragging = false
 		
-	# draws the dotted blue line and disables physics in pre-sweep
+	# lerps the broom to the mouse constantly to emulate a smooth sweeping motion
 	if isDragging:
 		var mousePos = get_global_mouse_position()
 		mousePos = mousePos.clamp(levelMinimum, levelMaximum)
@@ -98,7 +96,7 @@ func _physics_process(delta: float) -> void:
 			self.rotate(2 * PI / 30)
 	
 	# sets modulation
-	if isDragging or isRepositioning:
+	if isRepositioning:
 		$broomSprite.modulate = Color(0.95, 0.95, 0.95, 0.8)
 	elif isMouseHovering:
 		$broomSprite.modulate = Color(1.5, 1.5, 1.5, 1.0)
