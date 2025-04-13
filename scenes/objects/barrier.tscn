@@ -6,6 +6,8 @@
 size = Vector2(64, 64)
 
 [node name="StaticBody2D" type="StaticBody2D"]
+z_index = 2
+z_as_relative = false
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(2, 1)

@@ -1,0 +1,82 @@
+[gd_scene load_steps=8 format=3 uid="uid://bw1urms8aib7q"]
+
+[ext_resource type="Script" uid="uid://dduhd6vas1hiq" path="res://scripts/levelTemplate.gd" id="1_3b3nu"]
+[ext_resource type="PackedScene" uid="uid://dxk8jo7f1ogdk" path="res://scenes/objects/ball.tscn" id="2_dh3sk"]
+[ext_resource type="PackedScene" uid="uid://r23675mm0hgs" path="res://scenes/objects/barrier.tscn" id="3_fstfe"]
+[ext_resource type="PackedScene" uid="uid://c0pnlawl8f31x" path="res://scenes/objects/broom.tscn" id="4_q6akh"]
+[ext_resource type="PackedScene" uid="uid://dhs2rkoq36qwu" path="res://scenes/objects/floorHole.tscn" id="5_8po4y"]
+[ext_resource type="PackedScene" uid="uid://cuiuy4cscgf6i" path="res://scenes/objects/edgeRamp.tscn" id="6_dh3sk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yhna4"]
+size = Vector2(2058, 1130)
+
+[node name="demo" type="Node2D"]
+script = ExtResource("1_3b3nu")
+ball = ExtResource("2_dh3sk")
+
+[node name="levelGeometry" type="Node2D" parent="."]
+
+[node name="outerLeft" parent="levelGeometry" instance=ExtResource("3_fstfe")]
+position = Vector2(-1064, -16)
+scale = Vector2(1, 24.57)
+
+[node name="outerRight" parent="levelGeometry" instance=ExtResource("3_fstfe")]
+position = Vector2(1072, 0)
+scale = Vector2(1, 24.465)
+
+[node name="outerLower" parent="levelGeometry" instance=ExtResource("3_fstfe")]
+position = Vector2(0, 600)
+rotation = -1.5709
+scale = Vector2(1, 33.265)
+
+[node name="outerUpper" parent="levelGeometry" instance=ExtResource("3_fstfe")]
+position = Vector2(0, -600)
+rotation = -1.5709
+scale = Vector2(1, 32.48)
+
+[node name="leftRamp" parent="levelGeometry" instance=ExtResource("6_dh3sk")]
+position = Vector2(-995, 0)
+scale = Vector2(1, 2.475)
+
+[node name="bottomRamp" parent="levelGeometry" instance=ExtResource("6_dh3sk")]
+position = Vector2(-9.53674e-07, 531)
+rotation = 4.71239
+scale = Vector2(1, 4.195)
+
+[node name="upperRamp" parent="levelGeometry" instance=ExtResource("6_dh3sk")]
+position = Vector2(0, -531)
+rotation = 1.5708
+scale = Vector2(1, 4.195)
+
+[node name="rightRamp" parent="levelGeometry" instance=ExtResource("6_dh3sk")]
+position = Vector2(1003, 7.43228e-12)
+rotation = 3.14159
+scale = Vector2(1, 2.475)
+
+[node name="Camera" type="Camera2D" parent="."]
+zoom = Vector2(0.9, 0.9)
+
+[node name="Broom" parent="." instance=ExtResource("4_q6akh")]
+top_level = true
+z_index = 3
+position = Vector2(829, 0)
+rotation = 3.14159
+
+[node name="levelBoundary" type="Area2D" parent="."]
+position = Vector2(-595, -513)
+
+[node name="boundaryShape" type="CollisionShape2D" parent="levelBoundary"]
+visible = false
+position = Vector2(596, 512)
+shape = SubResource("RectangleShape2D_yhna4")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="hole" parent="." instance=ExtResource("5_8po4y")]
+z_as_relative = false
+position = Vector2(1, 0)
+rotation = 0.000501706
+scale = Vector2(0.682967, 0.682453)
+
+[connection signal="body_exited" from="levelBoundary" to="hole" method="_on_level_boundary_body_exited"]
+[connection signal="mouse_entered" from="levelBoundary" to="Broom" method="mouseInLevelBoundary"]
+[connection signal="mouse_exited" from="levelBoundary" to="Broom" method="mouseOutLevelBoundary"]
