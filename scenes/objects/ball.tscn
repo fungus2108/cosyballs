@@ -8,12 +8,12 @@
 radius = 7.51665
 
 [node name="ballBody" type="RigidBody2D"]
-z_index = 1
+z_index = 2
 mass = 2.5
 physics_material_override = ExtResource("1_f7cbr")
 gravity_scale = 0.0
 can_sleep = false
-linear_damp = 0.4
+linear_damp = 0.3
 angular_damp = 0.5
 script = ExtResource("1_cxlvu")
 

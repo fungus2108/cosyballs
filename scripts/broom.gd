@@ -1,7 +1,5 @@
 extends AnimatableBody2D
 
-var rotationSpeed = 0.025
-
 # variables for sweep tween (sween?) speed & time
 var isSweeping = false
 
@@ -22,9 +20,12 @@ var isMouseInLevel = false
 var isRepositioning = false
 var lastValidPosition = Vector2()
 
-# variables for keeping the broom within the level bounds
+# variables for keeping stuff within the level bounds
 var levelMinimum = Vector2()
 var levelMaximum = Vector2()
+
+var followSpeed = 1.5
+var turnSpeed = 2.5
 
 # feels bad using a hardcoded value here but hey ho
 @onready var broomWidth = 12 * $broomSprite.scale.y
@@ -53,29 +54,32 @@ func _physics_process(delta: float) -> void:
 			# stores current (valid) broom position
 			lastValidPosition = self.position
 		
-	# handles the sweeping when player drags from the broom to a valid location
+	# stops dragging if there is no input (duh)
 	if isDragging and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		# re-enables physics on broom
-		$CollisionShape2D.set_deferred("disabled", false)
 		isDragging = false
 		
-		# dependent on levels each having a level boundary that emits signals here!!
-		broomSweep()
-		
-		# gets rid of dashed line
-		queue_redraw()
-		
-	# draws the dotted blue line and disables physics in pre-sweep
+	# lerps the broom to the mouse constantly to emulate a smooth sweeping motion
 	if isDragging:
-		# disables physics on broom when pre-sweep dragging
-		$CollisionShape2D.set_deferred("disabled", true)
-		# gets the direction of broom -> mouse for rotation setting
-		var mousePosition = get_global_mouse_position()
-		var directionVector =  mousePosition - self.position
+		var mousePos = get_global_mouse_position()
+		mousePos = mousePos.clamp(levelMinimum, levelMaximum)
+			
+		var directionVector = mousePos - self.position
+		var newPos = self.position.lerp(mousePos, delta * followSpeed)
 		
-		self.rotation = directionVector.angle()
-		queue_redraw()
+		# at angles where we don't want the broom to flip the cosine is negative
+		if cos(self.rotation - directionVector.angle()) < 0:
+			directionVector = -directionVector
+		
+		var newAngle
+		
+		# deadzone over broom for rotations
+		if isMouseHovering:
+			newAngle = self.rotation
+		else:
+			newAngle = lerp_angle(self.rotation, directionVector.angle(), delta * turnSpeed)
 	
+		self.transform = Transform2D(newAngle, newPos)
+
 	# drops broom after reposition
 	if isRepositioning and not Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
 		isRepositioning = false
@@ -98,12 +102,12 @@ func _physics_process(delta: float) -> void:
 		
 		# who up rotating they broom
 		if Input.is_action_just_pressed("MWD"):
-			self.rotate(-2 * PI / 30)
+			self.rotate(-2 * PI / 12)
 		if Input.is_action_just_pressed("MWU"):
-			self.rotate(2 * PI / 30)
+			self.rotate(2 * PI / 12)
 	
 	# sets modulation
-	if isDragging or isRepositioning:
+	if isRepositioning:
 		$broomSprite.modulate = Color(0.95, 0.95, 0.95, 0.8)
 	elif isMouseHovering:
 		$broomSprite.modulate = Color(1.5, 1.5, 1.5, 1.0)
@@ -111,49 +115,6 @@ func _physics_process(delta: float) -> void:
 		$broomSprite.modulate = Color(1.0, 1.0, 1.0, 1.0)
 		
 		
-func _draw():
-	if isDragging:
-		var mousePosition = get_local_mouse_position()
-		draw_dashed_line(Vector2(0, 0), mousePosition, Color.DEEP_SKY_BLUE, 15.0, 30.0, true, true)
-
-
-## Lets the player sweep again
-func sweepTweenCallback():
-	isSweeping = false
-
-
-## Sweeps the broom. Distance and speed dependent on global variables
-func broomSweep():
-	var mousePosition = get_global_mouse_position()
-	
-	# bool to stop double sweeps / unintended behaviour
-	isSweeping = true
-		
-	# create a tween
-	var sweepTween = get_tree().create_tween()
-	
-	# get the vector between the broom and the mouse
-	var sweepVector = mousePosition - self.position
-	
-	# get the distance from the broom to the mouse and give it a min / max distance
-	var totalDistance = position.distance_to(mousePosition)
-	var tweenDistance = clampf(totalDistance, minSweepDistance, maxSweepDistance)
-	
-	# calculate the destination based off the normalised vector and calculated distance
-	var tmpDestination = self.position + (sweepVector.normalized() * tweenDistance)
-	
-	# clamp distance to level bounding box
-	var sweepDestination = tmpDestination.clamp(levelMinimum, levelMaximum)
-	
-	var tweenSpeed = clampf(sweepSpeed / tweenDistance, minSweepTime, maxSweepTime)
-	
-	# tween me
-	sweepTween.tween_property(self, "global_position", sweepDestination, tweenSpeed)
-	
-	# callback has to be an icky function (idk how to do anonymous functions)
-	sweepTween.tween_callback(sweepTweenCallback)
-
-
 # these two functions receive signals for the mouse entering / exiting object (broom) area
 func onMouseHover() -> void:
 	isMouseHovering = true

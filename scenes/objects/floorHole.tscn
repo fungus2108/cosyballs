@@ -13,7 +13,7 @@ shader_parameter/noColour = Vector4(0, 0, 0, 0)
 [node name="Area2D" type="Area2D"]
 gravity_point = true
 linear_damp_space_override = 3
-linear_damp = 6.0
+linear_damp = 10.0
 script = ExtResource("1_pqek0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -21,6 +21,7 @@ rotation = 0.00342622
 shape = SubResource("CircleShape2D_x6ng3")
 
 [node name="holeShader" type="ColorRect" parent="."]
+z_index = 1
 material = SubResource("ShaderMaterial_pqek0")
 anchors_preset = 8
 anchor_left = 0.5
