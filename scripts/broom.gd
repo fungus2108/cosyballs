@@ -64,8 +64,19 @@ func _physics_process(delta: float) -> void:
 		mousePos = mousePos.clamp(levelMinimum, levelMaximum)
 			
 		var directionVector = mousePos - self.position
-		var newPos = self.position.lerp(mousePos, delta * followSpeed)	
-		var newAngle = lerp_angle(self.rotation, directionVector.angle(), delta * turnSpeed)
+		var newPos = self.position.lerp(mousePos, delta * followSpeed)
+		
+		# at angles where we don't want the broom to flip the cosine is negative
+		if cos(self.rotation - directionVector.angle()) < 0:
+			directionVector = -directionVector
+		
+		var newAngle
+		
+		# deadzone over broom for rotations
+		if isMouseHovering:
+			newAngle = self.rotation
+		else:
+			newAngle = lerp_angle(self.rotation, directionVector.angle(), delta * turnSpeed)
 	
 		self.transform = Transform2D(newAngle, newPos)
 
@@ -91,9 +102,9 @@ func _physics_process(delta: float) -> void:
 		
 		# who up rotating they broom
 		if Input.is_action_just_pressed("MWD"):
-			self.rotate(-2 * PI / 30)
+			self.rotate(-2 * PI / 12)
 		if Input.is_action_just_pressed("MWU"):
-			self.rotate(2 * PI / 30)
+			self.rotate(2 * PI / 12)
 	
 	# sets modulation
 	if isRepositioning:
