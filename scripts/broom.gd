@@ -1,16 +1,5 @@
 extends AnimatableBody2D
 
-# variables for sweep tween (sween?) speed & time
-var isSweeping = false
-
-var sweepSpeed = 100.0
-
-var maxSweepTime = 0.9
-var minSweepTime = 0.75
-
-var maxSweepDistance = 500.0
-var minSweepDistance = 60.0
-
 # variable for mouse interactions
 var isMouseHovering = false
 var isDragging = false
@@ -25,7 +14,7 @@ var levelMinimum = Vector2()
 var levelMaximum = Vector2()
 
 var followSpeed = 1.5
-var turnSpeed = 2.5
+var turnSpeed = 5.0
 
 # feels bad using a hardcoded value here but hey ho
 @onready var broomWidth = 12 * $broomSprite.scale.y
@@ -46,10 +35,10 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 
 	# verifies if player is trying to sweep or move the broom
-	if isMouseHovering and not isSweeping and not isRepositioning:
+	if isMouseInLevel and not isDragging and not isRepositioning:
 		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 			isDragging = true
-		elif Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
+		elif isMouseHovering and Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
 			isRepositioning = true
 			# stores current (valid) broom position
 			lastValidPosition = self.position
@@ -64,7 +53,8 @@ func _physics_process(delta: float) -> void:
 		mousePos = mousePos.clamp(levelMinimum, levelMaximum)
 			
 		var directionVector = mousePos - self.position
-		var newPos = self.position.lerp(mousePos, delta * followSpeed)
+
+		var newPos = self.position.lerp(mousePos, (delta * followSpeed))
 		
 		# at angles where we don't want the broom to flip the cosine is negative
 		if cos(self.rotation - directionVector.angle()) < 0:
@@ -102,14 +92,14 @@ func _physics_process(delta: float) -> void:
 		
 		# who up rotating they broom
 		if Input.is_action_just_pressed("MWD"):
-			self.rotate(-2 * PI / 12)
+			self.rotate(-2 * PI / 18)
 		if Input.is_action_just_pressed("MWU"):
-			self.rotate(2 * PI / 12)
+			self.rotate(2 * PI / 18)
 	
 	# sets modulation
 	if isRepositioning:
 		$broomSprite.modulate = Color(0.95, 0.95, 0.95, 0.8)
-	elif isMouseHovering:
+	elif isMouseHovering and not isDragging:
 		$broomSprite.modulate = Color(1.5, 1.5, 1.5, 1.0)
 	else:
 		$broomSprite.modulate = Color(1.0, 1.0, 1.0, 1.0)
