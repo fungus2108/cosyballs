@@ -4,7 +4,7 @@ render_mode blend_mix;
 uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_nearest_mipmap;
 
 void fragment(){
-	COLOR = textureLod(screen_texture, SCREEN_UV, 1.2);
+	COLOR = textureLod(screen_texture, SCREEN_UV, 1.5);
 }
 
 void vertex() {

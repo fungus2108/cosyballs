@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://cvnfet3tk2n3k"]
+
+[ext_resource type="Texture2D" uid="uid://fcg12unrhmp" path="res://assets/sprites/barrier.png" id="1_32kl1"]
+[ext_resource type="Script" uid="uid://birrfx2d8a4w7" path="res://scripts/menuBackgroundSpinner.gd" id="1_xcw2s"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xcw2s"]
+size = Vector2(24, 64)
+
+[node name="MenuBackgroundSpinner" type="AnimatableBody2D"]
+script = ExtResource("1_xcw2s")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.75, 1)
+texture = ExtResource("1_32kl1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_xcw2s")

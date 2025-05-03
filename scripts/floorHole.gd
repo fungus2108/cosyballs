@@ -3,6 +3,8 @@ extends Area2D
 var totalBallInstances
 var ballCounter = 0.0
 
+var levelBeaten = false
+
 func _ready() -> void:
 	# fetches the total number of balls in the level from the level script
 	await get_tree().physics_frame
@@ -11,7 +13,9 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if ballCounter == totalBallInstances:
-		get_tree().quit()
+		if not levelBeaten:
+			levelBeaten = true
+			LevelManager.levelSwitch()
 
 
 func _on_body_entered(body: Node2D) -> void:

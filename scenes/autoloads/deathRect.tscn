@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://bouygr0pwrs4g"]
+
+[ext_resource type="Script" uid="uid://xyhyk8ieoml6" path="res://scripts/deathRect.gd" id="1_4evyj"]
+
+[node name="deathRect" type="Control"]
+z_index = 100
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("1_4evyj")
+
+[node name="colourRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2000.0
+offset_top = -1512.0
+offset_right = 2000.0
+offset_bottom = 1488.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)

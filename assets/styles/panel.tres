@@ -1,0 +1,7 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://d00k1mnvm3qff"]
+
+[ext_resource type="Texture2D" uid="uid://sghf46dbbaxx" path="res://assets/sprites/panel_rectangle.png" id="1_qlfrt"]
+
+[resource]
+texture = ExtResource("1_qlfrt")
+modulate_color = Color(0.4, 0.4, 0.4, 1)
