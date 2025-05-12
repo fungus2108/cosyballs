@@ -3,7 +3,7 @@ extends RigidBody2D
 var hasMoved = false
 
 func _ready():
-	$ballSprite.modulate.s = 1
+	$ballSprite.modulate.s = 0.75
 	$ballSprite.modulate.v = 1
 	$ballSprite.modulate.h = randf()
 

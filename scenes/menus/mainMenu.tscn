@@ -1,16 +1,16 @@
 [gd_scene load_steps=11 format=3 uid="uid://bv7fb268l45mi"]
 
-[ext_resource type="Script" uid="uid://jq84nvth8206" path="res://scripts/menuBackground.gd" id="1_lo8gg"]
-[ext_resource type="PackedScene" uid="uid://5em58tjnm15e" path="res://scenes/objects/gravBall.tscn" id="2_ahh6b"]
-[ext_resource type="Shader" uid="uid://cbbuf20qgll2k" path="res://materials/menuBlur.gdshader" id="2_kxqoy"]
-[ext_resource type="PackedScene" uid="uid://cvnfet3tk2n3k" path="res://scenes/objects/menuBackgroundSpinner.tscn" id="5_kxqoy"]
-[ext_resource type="Script" uid="uid://dgb2n5j4qkc2b" path="res://scripts/mainMenu.gd" id="6_7d58l"]
-[ext_resource type="FontFile" uid="uid://dqplc5rd5pqih" path="res://assets/fonts/Retro Gaming.ttf" id="6_cyf8m"]
-[ext_resource type="PackedScene" uid="uid://r23675mm0hgs" path="res://scenes/objects/barrier.tscn" id="6_lo8gg"]
-[ext_resource type="StyleBox" uid="uid://d00k1mnvm3qff" path="res://assets/styles/panel.tres" id="6_oogii"]
+[ext_resource type="Script" uid="uid://jq84nvth8206" path="res://scripts/menuBackground.gd" id="1_wxjkf"]
+[ext_resource type="PackedScene" uid="uid://5em58tjnm15e" path="res://scenes/objects/gravBall.tscn" id="2_2yjtc"]
+[ext_resource type="Shader" uid="uid://cbbuf20qgll2k" path="res://materials/menuBlur.gdshader" id="3_xxwsn"]
+[ext_resource type="Script" uid="uid://dgb2n5j4qkc2b" path="res://scripts/mainMenu.gd" id="4_lgdhf"]
+[ext_resource type="StyleBox" uid="uid://d00k1mnvm3qff" path="res://assets/styles/panel.tres" id="5_k7u30"]
+[ext_resource type="FontFile" uid="uid://dqplc5rd5pqih" path="res://assets/fonts/Retro Gaming.ttf" id="6_lfuba"]
+[ext_resource type="PackedScene" uid="uid://r23675mm0hgs" path="res://scenes/objects/barrier.tscn" id="7_exsfm"]
+[ext_resource type="PackedScene" uid="uid://cvnfet3tk2n3k" path="res://scenes/objects/menuBackgroundSpinner.tscn" id="8_m2jyg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_x3exl"]
-shader = ExtResource("2_kxqoy")
+shader = ExtResource("3_xxwsn")
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_kpumv"]
 color = Color(0, 0.56, 0.168, 1)
@@ -19,8 +19,8 @@ grow_end = -1.0
 thickness = 6
 
 [node name="MainMenu" type="Node2D"]
-script = ExtResource("1_lo8gg")
-ball = ExtResource("2_ahh6b")
+script = ExtResource("1_wxjkf")
+ball = ExtResource("2_2yjtc")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
@@ -53,7 +53,7 @@ offset_right = 960.0
 offset_bottom = 360.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("6_7d58l")
+script = ExtResource("4_lgdhf")
 
 [node name="menuItems" type="Control" parent="menu"]
 anchors_preset = 0
@@ -73,7 +73,7 @@ offset_top = 40.0
 offset_right = 660.0
 offset_bottom = 160.0
 grow_vertical = 2
-theme_override_styles/panel = ExtResource("6_oogii")
+theme_override_styles/panel = ExtResource("5_k7u30")
 
 [node name="playButton" type="Button" parent="menu/menuItems/playPanel"]
 modulate = Color(0.99, 0.99, 0.99, 1)
@@ -89,7 +89,7 @@ offset_right = 175.0
 offset_bottom = 55.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/font = ExtResource("6_cyf8m")
+theme_override_fonts/font = ExtResource("6_lfuba")
 theme_override_font_sizes/font_size = 77
 text = "Play"
 
@@ -103,7 +103,7 @@ offset_top = 200.0
 offset_right = 660.0
 offset_bottom = 320.0
 grow_vertical = 2
-theme_override_styles/panel = ExtResource("6_oogii")
+theme_override_styles/panel = ExtResource("5_k7u30")
 
 [node name="optionsButton" type="Button" parent="menu/menuItems/optionsPanel"]
 layout_mode = 1
@@ -118,7 +118,7 @@ offset_right = 175.0
 offset_bottom = 55.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/font = ExtResource("6_cyf8m")
+theme_override_fonts/font = ExtResource("6_lfuba")
 theme_override_font_sizes/font_size = 66
 text = "Options"
 
@@ -132,7 +132,7 @@ offset_top = 360.0
 offset_right = 660.0
 offset_bottom = 480.0
 grow_vertical = 2
-theme_override_styles/panel = ExtResource("6_oogii")
+theme_override_styles/panel = ExtResource("5_k7u30")
 
 [node name="creditsButton" type="Button" parent="menu/menuItems/creditsPanel"]
 layout_mode = 1
@@ -147,7 +147,7 @@ offset_right = 175.0
 offset_bottom = 55.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/font = ExtResource("6_cyf8m")
+theme_override_fonts/font = ExtResource("6_lfuba")
 theme_override_font_sizes/font_size = 66
 text = "Credits"
 
@@ -161,7 +161,7 @@ offset_top = 520.0
 offset_right = 660.0
 offset_bottom = 640.0
 grow_vertical = 2
-theme_override_styles/panel = ExtResource("6_oogii")
+theme_override_styles/panel = ExtResource("5_k7u30")
 
 [node name="quitButton" type="Button" parent="menu/menuItems/quitPanel"]
 layout_mode = 1
@@ -176,7 +176,7 @@ offset_right = 175.0
 offset_bottom = 55.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/font = ExtResource("6_cyf8m")
+theme_override_fonts/font = ExtResource("6_lfuba")
 theme_override_font_sizes/font_size = 77
 text = "Quit"
 
@@ -205,7 +205,7 @@ offset_right = 180.0
 offset_bottom = -100.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_styles/panel = ExtResource("6_oogii")
+theme_override_styles/panel = ExtResource("5_k7u30")
 
 [node name="creditBackButton" type="Button" parent="menu/creditItems/creditBackPanel"]
 modulate = Color(0.99, 0.99, 0.99, 1)
@@ -221,7 +221,7 @@ offset_right = 175.0
 offset_bottom = 55.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/font = ExtResource("6_cyf8m")
+theme_override_fonts/font = ExtResource("6_lfuba")
 theme_override_font_sizes/font_size = 77
 text = "Back"
 
@@ -235,7 +235,7 @@ offset_top = 120.0
 offset_right = 280.0
 offset_bottom = 400.0
 grow_horizontal = 2
-theme_override_styles/panel = ExtResource("6_oogii")
+theme_override_styles/panel = ExtResource("5_k7u30")
 
 [node name="credits" type="Label" parent="menu/creditItems/creditsPanel"]
 layout_mode = 1
@@ -250,7 +250,7 @@ offset_right = 270.0
 offset_bottom = 115.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/font = ExtResource("6_cyf8m")
+theme_override_fonts/font = ExtResource("6_lfuba")
 theme_override_font_sizes/font_size = 22
 text = "Music: 
 Eric Matyas - www.soundimage.org
@@ -280,7 +280,7 @@ offset_top = 160.0
 offset_right = 240.0
 offset_bottom = 280.0
 grow_horizontal = 2
-theme_override_styles/panel = ExtResource("6_oogii")
+theme_override_styles/panel = ExtResource("5_k7u30")
 
 [node name="volumeSlider" type="HSlider" parent="menu/optionsItems/volumePanel"]
 layout_mode = 1
@@ -308,7 +308,7 @@ offset_left = -230.0
 offset_right = 230.0
 offset_bottom = 80.0
 grow_horizontal = 2
-theme_override_fonts/font = ExtResource("6_cyf8m")
+theme_override_fonts/font = ExtResource("6_lfuba")
 theme_override_font_sizes/font_size = 33
 text = "Volume"
 horizontal_alignment = 1
@@ -327,7 +327,7 @@ offset_right = 600.0
 offset_bottom = 115.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = ExtResource("6_oogii")
+theme_override_styles/panel = ExtResource("5_k7u30")
 
 [node name="controlsLabel" type="Label" parent="menu/optionsItems/controlsPanel"]
 layout_mode = 1
@@ -342,7 +342,7 @@ offset_right = 320.0
 offset_bottom = 70.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/font = ExtResource("6_cyf8m")
+theme_override_fonts/font = ExtResource("6_lfuba")
 theme_override_font_sizes/font_size = 33
 text = "Left Click & Drag: Sweep
 Right Click & Drag: Reposition
@@ -364,7 +364,7 @@ offset_right = 180.0
 offset_bottom = -80.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_styles/panel = ExtResource("6_oogii")
+theme_override_styles/panel = ExtResource("5_k7u30")
 
 [node name="optionsBackButton" type="Button" parent="menu/optionsItems/optionsBackPanel"]
 modulate = Color(0.99, 0.99, 0.99, 1)
@@ -380,31 +380,31 @@ offset_right = 175.0
 offset_bottom = 55.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/font = ExtResource("6_cyf8m")
+theme_override_fonts/font = ExtResource("6_lfuba")
 theme_override_font_sizes/font_size = 77
 text = "Back"
 
 [node name="BackgroundLevel" type="Node2D" parent="."]
 
-[node name="StaticBody2D" parent="BackgroundLevel" instance=ExtResource("6_lo8gg")]
+[node name="StaticBody2D" parent="BackgroundLevel" instance=ExtResource("7_exsfm")]
 position = Vector2(-992, -422)
 scale = Vector2(1, 31.814)
 
-[node name="StaticBody2D2" parent="BackgroundLevel" instance=ExtResource("6_lo8gg")]
+[node name="StaticBody2D2" parent="BackgroundLevel" instance=ExtResource("7_exsfm")]
 position = Vector2(992, -436)
 scale = Vector2(1, 31.974)
 
-[node name="StaticBody2D4" parent="BackgroundLevel" instance=ExtResource("6_lo8gg")]
+[node name="StaticBody2D4" parent="BackgroundLevel" instance=ExtResource("7_exsfm")]
 position = Vector2(0, 572)
 rotation = 1.5708
 scale = Vector2(1, 31.894)
 
-[node name="MenuBackgroundSpinner" parent="BackgroundLevel" instance=ExtResource("5_kxqoy")]
+[node name="MenuBackgroundSpinner" parent="BackgroundLevel" instance=ExtResource("8_m2jyg")]
 position = Vector2(-486, 164)
 rotation = 1.5708
 scale = Vector2(1.28, 9.92)
 
-[node name="MenuBackgroundSpinner2" parent="BackgroundLevel" instance=ExtResource("5_kxqoy")]
+[node name="MenuBackgroundSpinner2" parent="BackgroundLevel" instance=ExtResource("8_m2jyg")]
 position = Vector2(522, 164)
 rotation = 1.5708
 scale = Vector2(1.28, 9.92)

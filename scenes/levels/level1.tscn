@@ -79,7 +79,7 @@ debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
 [node name="hole" parent="." instance=ExtResource("5_8po4y")]
 position = Vector2(-702, 0)
-scale = Vector2(0.723404, 0.602449)
+scale = Vector2(0.863, 0.719)
 
 [connection signal="body_exited" from="levelBoundary" to="hole" method="_on_level_boundary_body_exited"]
 [connection signal="mouse_entered" from="levelBoundary" to="Broom" method="mouseInLevelBoundary"]

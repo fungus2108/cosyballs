@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dhs2rkoq36qwu" path="res://scenes/objects/floorHole.tscn" id="6_sd6f7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yhna4"]
-size = Vector2(2058, 1130)
+size = Vector2(2098, 1182)
 
 [node name="lvl5" type="Node2D"]
 script = ExtResource("1_v1pya")
@@ -86,7 +86,7 @@ position = Vector2(-595, -513)
 
 [node name="boundaryShape" type="CollisionShape2D" parent="levelBoundary"]
 visible = false
-position = Vector2(596, 512)
+position = Vector2(602, 510)
 shape = SubResource("RectangleShape2D_yhna4")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
