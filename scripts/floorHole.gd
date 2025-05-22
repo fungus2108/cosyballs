@@ -25,7 +25,7 @@ func _on_body_entered(body: Node2D) -> void:
 	if body is RigidBody2D:
 		# changes the collision detection so that hole balls dont effect unholed balls
 		body.set_collision_layer(4)
-		body.set_collision_mask(4)
+		body.set_collision_mask(17)
 
 		# schlorp them toward the center of the hole
 		var impulseVec = (self.global_position - body.position) * 15.0
