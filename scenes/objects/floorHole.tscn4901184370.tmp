@@ -11,8 +11,6 @@ shader = ExtResource("1_x6ng3")
 shader_parameter/noColour = Vector4(0, 0, 0, 0)
 
 [node name="Area2D" type="Area2D"]
-collision_layer = 9
-collision_mask = 9
 gravity_point = true
 linear_damp_space_override = 3
 linear_damp = 10.0

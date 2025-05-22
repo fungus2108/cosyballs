@@ -1,7 +1,7 @@
 extends Node2D
 
 # stupid to do it like this but it saves time and energy. does not scale up well!
-var levelBalls = {"lvl0" = 1250, "lvl1" = 1500, "lvl2" = 2000, "lvl3" = 1500, "lvl4" = 1250,
+var levelBalls = {"lvl0" = 350, "lvl00" = 250, "lvl1" = 1500, "lvl2" = 2000, "lvl3" = 1500, "lvl4" = 1250,
 	"lvl5" = 1750}
 
 var ballInstances 

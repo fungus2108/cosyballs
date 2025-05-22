@@ -35,8 +35,8 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 
 	# verifies if player is trying to sweep or move the broom
-	if isMouseInLevel and not isDragging and not isRepositioning:
-		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+	if not isDragging and not isRepositioning:
+		if isMouseInLevel and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 			isDragging = true
 		elif isMouseHovering and Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
 			isRepositioning = true
@@ -98,7 +98,7 @@ func _physics_process(delta: float) -> void:
 	
 	# sets modulation
 	if isRepositioning:
-		$broomSprite.modulate = Color(0.95, 0.95, 0.95, 0.8)
+		$broomSprite.modulate = Color(0.95, 0.95, 0.95, 0.7)
 	elif isMouseHovering and not isDragging:
 		$broomSprite.modulate = Color(1.5, 1.5, 1.5, 1.0)
 	else:
