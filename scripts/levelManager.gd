@@ -38,10 +38,11 @@ func populateLevelList(path: String):
 					levels.append(levelsDir + file_name)
 			file_name = dir.get_next()
 	else:
-		print("An error occurred when trying to access the path.")
+		print("An error occurred when trying to access the levels.")
  
 func levelSwitch():
 	await DeathRect.fadeOut()
+	GlobalAudio.broomAudioOff()
 	levelIndex += 1
 	
 	if levelIndex > (levels.size() - 1):

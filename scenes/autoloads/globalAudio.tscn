@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://crr4wyl30senr"]
+
+[ext_resource type="Script" uid="uid://bf5xva1px7ygs" path="res://scripts/audioPlayer.gd" id="1_7qxs5"]
+[ext_resource type="AudioStream" uid="uid://c628e5a7cq4q5" path="res://assets/sound/sweep.mp3" id="1_fmorr"]
+
+[node name="GlobalAudio" type="Node2D"]
+script = ExtResource("1_7qxs5")
+
+[node name="broomSweep" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_fmorr")
+volume_db = 18.0
+autoplay = true
+parameters/looping = true

@@ -14,7 +14,7 @@ void fragment(){
 	vec4 colour = textureLod(screen_texture, SCREEN_UV, 0.0);
 
 	if (pixDistance < holeRadius) {
-		colour.rgb *= 0.5;
+		colour.rgb *= 0.1;
 		COLOR = colour;
 	}
 	else {

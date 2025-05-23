@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 backgroundMusic="*res://scenes/autoloads/globalMusic.tscn"
 DeathRect="*res://scenes/autoloads/deathRect.tscn"
 LevelManager="*res://scenes/autoloads/levelManager.tscn"
+GlobalAudio="*res://scenes/autoloads/globalAudio.tscn"
 
 [display]
 

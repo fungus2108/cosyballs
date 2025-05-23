@@ -19,6 +19,7 @@ linear_damp = 6.0
 script = ExtResource("1_yc74s")
 
 [node name="rampShader" type="ColorRect" parent="."]
+visible = false
 material = SubResource("ShaderMaterial_pqek0")
 anchors_preset = 8
 anchor_left = 0.5

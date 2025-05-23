@@ -332,7 +332,8 @@ position = Vector2(935, 0)
 
 [node name="levelBoundary" type="Area2D" parent="."]
 position = Vector2(-596, -512)
-collision_mask = 9
+collision_layer = 2147483649
+collision_mask = 2147483649
 
 [node name="boundaryShape" type="CollisionShape2D" parent="levelBoundary"]
 visible = false

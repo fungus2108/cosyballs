@@ -16,6 +16,8 @@ var levelMaximum = Vector2()
 var followSpeed = 1.5
 var turnSpeed = 5.0
 
+var audioPlaying = false
+
 # feels bad using a hardcoded value here but hey ho
 @onready var broomWidth = 12 * $broomSprite.scale.y
 
@@ -47,10 +49,17 @@ func _physics_process(delta: float) -> void:
 	if isDragging and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		isDragging = false
 		
+		audioPlaying = false
+		GlobalAudio.broomAudioToggle()
+		
 	# lerps the broom to the mouse constantly to emulate a smooth sweeping motion
 	if isDragging:
 		var mousePos = get_global_mouse_position()
 		mousePos = mousePos.clamp(levelMinimum, levelMaximum)
+			
+		if not audioPlaying:
+			audioPlaying = true
+			GlobalAudio.broomAudioToggle()
 			
 		var directionVector = mousePos - self.position
 
