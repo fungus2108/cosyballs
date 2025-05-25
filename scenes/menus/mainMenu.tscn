@@ -119,8 +119,8 @@ offset_bottom = 55.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("6_lfuba")
-theme_override_font_sizes/font_size = 66
-text = "Options"
+theme_override_font_sizes/font_size = 55
+text = "Controls"
 
 [node name="creditsPanel" type="Panel" parent="menu/menuItems"]
 layout_mode = 1
@@ -255,7 +255,7 @@ theme_override_font_sizes/font_size = 22
 text = "Music: 
 Eric Matyas - www.soundimage.org
 Everything else:
-github.com/fungus2108"
+Harry Tarrant-Barton"
 horizontal_alignment = 1
 
 [node name="optionsItems" type="Control" parent="menu"]
@@ -276,9 +276,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -240.0
-offset_top = 160.0
+offset_top = -60.0
 offset_right = 240.0
-offset_bottom = 280.0
+offset_bottom = 60.0
 grow_horizontal = 2
 theme_override_styles/panel = ExtResource("5_k7u30")
 

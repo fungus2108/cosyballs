@@ -283,7 +283,7 @@ ball = ExtResource("2_qsj6i")
 
 [node name="Obstacle" parent="levelGeometry" instance=ExtResource("4_v0vb7")]
 z_index = 4
-position = Vector2(-697, 201)
+position = Vector2(-697, 225)
 scale = Vector2(3.815, 1)
 
 [node name="CeilingFan" parent="levelGeometry" instance=ExtResource("5_qsj6i")]
