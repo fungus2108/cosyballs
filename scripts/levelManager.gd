@@ -8,8 +8,10 @@ var levelIndex = -1
 
 var isPaused = false
 
+
 func _ready() -> void:
 	populateLevelList(levelsDir)
+	
 	
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("pause") and get_tree().current_scene.name != "MainMenu":
@@ -21,25 +23,18 @@ func _physics_process(delta: float) -> void:
 			await DeathRect.fadeOut()
 			levelIndex = -1
 			get_tree().change_scene_to_file("res://scenes/menus/mainMenu.tscn")
+			
+	if Input.is_action_just_pressed("cheat"):
+		levelSwitch()
 	
 	
 func populateLevelList(path: String):
-	var dir = DirAccess.open(path)
-	if dir:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != "":
-			if dir.current_is_dir():
-				print("Found directory: " + file_name)
-			else:
-				if file_name.ends_with(".import"):
-					pass
-				else:
-					levels.append(levelsDir + file_name)
-			file_name = dir.get_next()
-	else:
-		print("An error occurred when trying to access the levels.")
- 
+	var dir = ResourceLoader.list_directory(levelsDir)
+	
+	for levelName in dir:
+		levels.append(levelsDir + levelName)
+	
+
 func levelSwitch():
 	await DeathRect.fadeOut()
 	GlobalAudio.broomAudioOff()

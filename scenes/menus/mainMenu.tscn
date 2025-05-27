@@ -346,8 +346,9 @@ theme_override_fonts/font = ExtResource("6_lfuba")
 theme_override_font_sizes/font_size = 33
 text = "Left Click & Drag: Sweep
 Right Click & Drag: Reposition
-Mousewheel whilst Repositioning to rotate
+Mousewheel whilst repositioning to rotate
 P: Pause
+Home Key: Skip Level (if you want to cheat!)
 Escape: Quit"
 horizontal_alignment = 1
 
